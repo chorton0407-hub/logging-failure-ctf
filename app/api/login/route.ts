@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { logSecurityEvent, logDebug } from "../../../lib/logger";
 
-let failedAttempts = 0; // In-memory, resets when function cold starts
+let failedAttempts = 0;
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -10,15 +10,24 @@ export async function POST(req: NextRequest) {
 
   failedAttempts++;
 
+
   logSecurityEvent("Failed login attempt", {
     username,
     ip: req.headers.get("x-forwarded-for") || "unknown",
     failedAttempts,
   });
 
-  // Intentionally no alert after many failures
   if (failedAttempts > 10) {
-    logDebug("Brute-force likely, but no alert is sent.");
+    logSecurityEvent(
+      "Possible brute-force login attack detected",
+      {
+        username,
+        ip: req.headers.get("x-forwarded-for") || "unknown",
+        failedAttempts,
+      },
+      { alert: true }
+    );
+    logDebug("Brute-force likely, but manual follow-up is required.");
   }
 
   return NextResponse.json({
