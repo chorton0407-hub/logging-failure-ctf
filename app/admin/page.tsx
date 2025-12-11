@@ -7,6 +7,9 @@ export default function AdminPage() {
         Admins use specialized maintenance tools and emergency overrides.
         Only they know how to trigger them... or do they?
       </p>
+            <script>
+        {`// TODO: rotate emergency code: server-restart-override-2025`}
+      </script>
     </main>
   );
 }
