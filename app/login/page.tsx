@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 
 export default function LoginPage() {
   const [message, setMessage] = useState<string | null>(null);
@@ -51,6 +52,7 @@ export default function LoginPage() {
           {message}
         </p>
       )}
+            <Script src="/scripts/admin-hint.js" strategy="afterInteractive" />
     </main>
   );
 }

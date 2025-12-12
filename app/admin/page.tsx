@@ -10,7 +10,6 @@ export default function AdminPage() {
         Only they know how to trigger them... or do they?
       </p>
 
-      <Script src="/scripts/admin-hint.js" strategy="afterInteractive" />
     </main>
   );
 }
