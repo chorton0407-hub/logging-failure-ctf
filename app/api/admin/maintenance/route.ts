@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { logSecurityEvent } from "../../../../lib/logger";
 
+export async function GET(req: NextRequest) {
+  return NextResponse.json({
+    status: "ok",
+    message: "Maintenance API endpoint (CTF hint).",
+    hint: "Try POST with ?mode=emergency, header X-Debug-Override: 1, and JSON { secret: '...' }",
+  });
+}
 const FLAG = "FLAG{logging_and_alerting_failure}";
 const MAGIC_SECRET = "server-restart-override-2025";
 
